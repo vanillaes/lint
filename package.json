@@ -34,5 +34,8 @@
     "typings": "esmtk typings src/index.js",
     "clean": "esmtk clean --typings",
     "preview": "esmtk preview"
+  },
+  "dependencies": {
+    "commander": "^14.0.3"
   }
 }
