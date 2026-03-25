@@ -13,5 +13,16 @@
             "args": ["--version"],
             "console": "integratedTerminal",
         },
+        {
+            "name": "Lint",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/lint.js",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+        },
     ]
 }
