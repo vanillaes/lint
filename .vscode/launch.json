@@ -1,0 +1,17 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Version",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/lint.js",
+            "cwd": "${workspaceFolder}",
+            "args": ["--version"],
+            "console": "integratedTerminal",
+        },
+    ]
+}
