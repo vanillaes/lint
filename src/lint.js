@@ -1,20 +1,29 @@
 import config from './configs/eslint.config.js'
-import { readFile } from 'node:fs/promises'
-import { join } from 'node:path'
+import { access, constants, readFile } from 'node:fs/promises'
+import { join, resolve } from 'node:path'
 import { ESLint } from 'eslint'
 
 /**
  * Lint the following files
  * @param {string} pattern the pattern(s) of files to include
+ * @param {string | boolean | string[] | undefined} options lint options
  */
-export async function lint (pattern) {
+export async function lint (pattern, options) {
   const patterns = pattern.includes(',') ? pattern.split(',') : [pattern]
-  let ignores = [] // TODO: replace [] with --ignore input
 
+  const root = `${resolve(options.root)}`
+  const exists = await fileExists(root)
+  if (!exists) {
+    console.error(`lint-es: ${root} No such file or directory`)
+    process.exitCode = 1
+    return
+  }
+
+  let ignores = [] // TODO: replace [] with --ignore input
   // defaults
   const defaults = ['node_modules/', 'coverage/', 'vendor/', '**/*.min.js', '.*']
   // .gitignore
-  const gitignores = await readGitIgnore(process.cwd()) // TODO: replace with `root`
+  const gitignores = await readGitIgnore(root) // TODO: replace with `root`
   // combine
   ignores = [...defaults, ...gitignores]
   // de-duplicate
@@ -23,9 +32,10 @@ export async function lint (pattern) {
   let results = []
   try {
     const eslint = new ESLint({
+      cwd: root,
+      ignorePatterns: ignores,
       overrideConfigFile: true,
-      overrideConfig: config,
-      ignorePatterns: ignores
+      overrideConfig: config
     })
     results = await eslint.lintFiles(patterns)
   } catch (err) {
@@ -74,9 +84,27 @@ export async function lint (pattern) {
  */
 async function readGitIgnore (root) {
   const path = join(root, '.gitignore')
+  const exists = await fileExists(path)
+  if (!exists) {
+    return []
+  }
   const contents = await readFile(path, 'utf8')
   return contents
     .split('\n')
     .map(line => line.trim())
     .filter(line => line && !line.startsWith('#'))
+}
+
+/**
+ * Check if a file/folder exists
+ * @param {string} path the path to the file/folder
+ * @returns {Promise<boolean>} true if the file/folder exists, false otherwise
+ */
+export async function fileExists (path) {
+  try {
+    await access(path, constants.F_OK)
+    return true
+  } catch (error) {
+    return false
+  }
 }

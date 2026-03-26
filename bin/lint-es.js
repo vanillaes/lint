@@ -21,8 +21,9 @@ program.argument('[pattern]', '[...FILES]', '**/*.js')
 
     Paths in a project's root .gitignore file are also automatically ignored.
   `)
-  .action((pattern) => {
-    lint(pattern)
+  .option('-r, --root [value]', 'The root path to lint (default process.cwd())', process.cwd())
+  .action((pattern, options) => {
+    lint(pattern, options)
   })
 
 program.parse(process.argv)
