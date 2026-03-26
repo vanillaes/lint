@@ -10,10 +10,10 @@ const program = new Command()
   .description('Modern linting for ECMAScript Modules')
   .version(pkg.version, '-v, --version')
 
-program.argument('[pattern]', '[...FILES]', '**/*.js')
+program.argument('[pattern]', '[pattern]', '**/*.js')
   .description('Lint files matching the provided pattern (default *.spec.js)')
-  .usage(`lint-es [...options] [FILES...]
-    If FILES is omitted, all JavaScript source files (**/*.js)
+  .usage(`lint-es [...options] [pattern]
+    If [pattern] is omitted, all JavaScript source files (**/*.js)
     in the current working directory are checked, recursively.
 
     Certain paths (node_modules/, coverage/, vendor/, *.min.js, hidden files)
