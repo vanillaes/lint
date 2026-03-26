@@ -11,6 +11,8 @@ import { ESLint } from 'eslint'
 export async function lint (pattern, options) {
   const patterns = pattern.includes(',') ? pattern.split(',') : [pattern]
 
+  const fix = options.fix ? options.fix : false
+
   const root = `${resolve(options.root)}`
   const exists = await fileExists(root)
   if (!exists) {
@@ -35,9 +37,14 @@ export async function lint (pattern, options) {
       cwd: root,
       ignorePatterns: ignores,
       overrideConfigFile: true,
-      overrideConfig: config
+      overrideConfig: config,
+      fix
     })
     results = await eslint.lintFiles(patterns)
+
+    if (fix) {
+      await ESLint.outputFixes(results)
+    }
   } catch (err) {
     console.error('lint-es: Unexpected linter output')
     if (err instanceof Error) {

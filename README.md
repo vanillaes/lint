@@ -26,7 +26,7 @@ Modern linting for ECMAScript Modules based on **[StandardJS][]**.
 `lint-es [...options] [pattern]`
 
 - `[pattern]` - pattern of files to match (default `**/*.js`)
-<!-- - `--fix` - watch the tests for changes -->
+- `--fix` - automatically fix problems
 <!-- - `-i` | `--ignore` - the ignore matcher pattern (default `**/node_modules/**`) -->
 - `-r` | `--root` - the root path to run the linter from (default `process.cwd()`)
 

@@ -24,7 +24,7 @@
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
         },
-                {
+        {
             "name": "Lint --root",
             "type": "node",
             "request": "launch",
@@ -33,6 +33,18 @@
             ],
             "program": "${workspaceFolder}/bin/lint-es.js",
             "args": ["--root", "test/"],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "Lint --fix",
+            "type": "node",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/bin/lint-es.js",
+            "args": ["--fix"],
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
         },
