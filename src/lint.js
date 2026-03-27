@@ -11,9 +11,9 @@ import { ESLint } from 'eslint'
 export async function lint (pattern, options) {
   const patterns = pattern.includes(',') ? pattern.split(',') : [pattern]
 
-  const fix = options.fix ? options.fix : false
+  const fix = options?.fix ? options.fix : false
 
-  const root = `${resolve(options.root)}`
+  const root = `${resolve(options?.root)}`
   const exists = await fileExists(root)
   if (!exists) {
     console.error(`lint-es: ${root} No such file or directory`)
@@ -21,13 +21,16 @@ export async function lint (pattern, options) {
     return
   }
 
-  let ignores = [] // TODO: replace [] with --ignore input
+  let ignores = []
+  if (options?.ignore) {
+    ignores = options.ignore.includes(',') ? options.ignore.split(',') : [options.ignore]
+  }
   // defaults
   const defaults = ['node_modules/', 'coverage/', 'vendor/', '**/*.min.js', '.*']
   // .gitignore
   const gitignores = await readGitIgnore(root) // TODO: replace with `root`
   // combine
-  ignores = [...defaults, ...gitignores]
+  ignores = [...ignores, ...defaults, ...gitignores]
   // de-duplicate
   ignores = [...new Set(ignores)]
 

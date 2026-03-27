@@ -10,7 +10,7 @@ const program = new Command()
   .description('Modern linting for ECMAScript Modules')
   .version(pkg.version, '-v, --version')
 
-program.argument('[pattern]', '[pattern]', '**/*.js')
+program.argument('[pattern]', 'The pattern of file(s) to match', '**/*.js')
   .description('Lint files matching the provided pattern (default *.spec.js)')
   .usage(`lint-es [...options] [pattern]
     If [pattern] is omitted, all JavaScript source files (**/*.js)
@@ -22,7 +22,8 @@ program.argument('[pattern]', '[pattern]', '**/*.js')
     Paths in a project's root .gitignore file are also automatically ignored.
   `)
   .option('--fix', 'Attempt to automatically fix linting issues', false)
-  .option('--root [root]', 'The root path to lint (default process.cwd())', process.cwd())
+  .option('--ignore <ignore>', 'Specify files to ignore')
+  .option('--root [root]', 'Root path to lint (default process.cwd())', process.cwd())
   .action((pattern, options) => {
     lint(pattern, options)
   })

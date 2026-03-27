@@ -17,7 +17,7 @@ Modern linting for ECMAScript Modules based on **[StandardJS][]**.
 - Preloaded with the **[eslint-plugin-jsdoc][]** ruleset for linting JSDoc comments.
 - The following are ignored by default: `node_modules/`, `coverage/`, `vendor/`, `*.min.js`, and hidden files.
 - Files included in `.gitignore` will be ignored as well.
-<!-- - Automatically correct linting issues using `lint-es --fix`. -->
+- Automatically correct linting issues using `lint-es --fix`.
 
 ## lint-es
 
@@ -26,9 +26,9 @@ Modern linting for ECMAScript Modules based on **[StandardJS][]**.
 `lint-es [...options] [pattern]`
 
 - `[pattern]` - pattern of files to match (default `**/*.js`)
-- `--fix` - automatically fix problems
-<!-- - `-i` | `--ignore` - the ignore matcher pattern (default `**/node_modules/**`) -->
-- `--root` - the root path to run the linter from (default `process.cwd()`)
+- `--fix` - Automatically fix problems
+- `--ignore [ignore(s)]` - Specify files to ignore
+- `--root [root]` - the root path to run the linter from (default `process.cwd()`)
 
 ### Usage
 
