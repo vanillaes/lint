@@ -13,11 +13,14 @@ Modern linting for ECMAScript Modules based on **[StandardJS][]**.
 ## Features
 
 - **No Configuration**. No `.eslint*` files to manage.
-- Pre-loaded with the **[NeoStandard][]** (ie ESLint 9+ successor to **[StandardJS][]**) ruleset for clean JavaScript.
-- Preloaded with the **[eslint-plugin-jsdoc][]** ruleset for linting JSDoc comments.
+- Pre-loaded with the **[NeoStandard][]** ruleset for clean JavaScript code and styling.
+- Configured with the **[eslint-plugin-jsdoc][]** ruleset for linting JSDoc comments.
 - The following are ignored by default: `node_modules/`, `coverage/`, `vendor/`, `*.min.js`, and hidden files.
 - Files included in `.gitignore` will be ignored as well.
 - Automatically correct linting issues using `lint-es --fix`.
+
+
+*Note: **[NeoStandard][]** is a ESLint v9.x+ ruleset. Successor to **[StandardJS][]**.*
 
 ## lint-es
 
@@ -28,7 +31,7 @@ Modern linting for ECMAScript Modules based on **[StandardJS][]**.
 - `[files]` - file(s) to lint (default `**/*.js`)
 - `--cwd [cwd]` - The working directory (default `process.cwd()`)
 - `--fix` - Automatically fix problems
-- `--ignore [ignore(s)]` - Specify files to ignore
+- `--ignore [ignores]` - Specify file(s) to ignore
 
 ### Usage
 
@@ -50,7 +53,7 @@ lint-es --fix
 lint-es --ignore test1/,test2/**/*
 ```
 
-**Note: In Linux/OSX, matcher patterns must be delimited in quotes.**
+*Note: In Linux/OSX, matcher patterns must be delimited in quotes.*
 
 ## Configuration
 
