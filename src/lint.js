@@ -13,10 +13,10 @@ export async function lint (pattern, options) {
 
   const fix = options?.fix ? options.fix : false
 
-  const root = `${resolve(options?.root)}`
-  const exists = await fileExists(root)
+  const cwd = `${resolve(options?.cwd)}`
+  const exists = await fileExists(cwd)
   if (!exists) {
-    console.error(`lint-es: ${root} No such file or directory`)
+    console.error(`lint-es: ${cwd} No such file or directory`)
     process.exitCode = 1
     return
   }
@@ -28,7 +28,7 @@ export async function lint (pattern, options) {
   // defaults
   const defaults = ['node_modules/', 'coverage/', 'vendor/', '**/*.min.js', '.*']
   // .gitignore
-  const gitignores = await readGitIgnore(root) // TODO: replace with `root`
+  const gitignores = await readGitIgnore(cwd)
   // combine
   ignores = [...ignores, ...defaults, ...gitignores]
   // de-duplicate
@@ -37,7 +37,7 @@ export async function lint (pattern, options) {
   let results = []
   try {
     const eslint = new ESLint({
-      cwd: root,
+      cwd,
       ignorePatterns: ignores,
       overrideConfigFile: true,
       overrideConfig: config,
@@ -89,11 +89,11 @@ export async function lint (pattern, options) {
 
 /**
  * Read .gitignore
- * @param {string} root the root path
+ * @param {string} cwd the current working directory
  * @returns {string[]} a comma-deliminated list of ignore globs
  */
-async function readGitIgnore (root) {
-  const path = join(root, '.gitignore')
+async function readGitIgnore (cwd) {
+  const path = join(cwd, '.gitignore')
   const exists = await fileExists(path)
   if (!exists) {
     return []

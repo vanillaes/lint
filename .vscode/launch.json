@@ -49,14 +49,14 @@
             "console": "integratedTerminal",
         },
         {
-            "name": "Lint --root",
+            "name": "Lint --cwd",
             "type": "node",
             "request": "launch",
             "skipFiles": [
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/bin/lint-es.js",
-            "args": ["--root", "test/"],
+            "args": ["--cwd", "test/"],
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
         }

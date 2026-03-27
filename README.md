@@ -26,9 +26,9 @@ Modern linting for ECMAScript Modules based on **[StandardJS][]**.
 `lint-es [...options] [pattern]`
 
 - `[pattern]` - pattern of files to match (default `**/*.js`)
+- `--cwd [cwd]` - The working directory (default `process.cwd()`)
 - `--fix` - Automatically fix problems
 - `--ignore [ignore(s)]` - Specify files to ignore
-- `--root [root]` - the root path to run the linter from (default `process.cwd()`)
 
 ### Usage
 
@@ -41,7 +41,13 @@ lint-es
 lint-es '**/*.mjs'
 
 # lint the source (change the root)
-lint-es --root src/
+lint-es --cwd src/
+
+# lint the source (automatically fix issues)
+lint-es --fix
+
+# lint the source (ignore files)
+lint-es --ignore test1/,test2/**/*
 ```
 
 **Note: In Linux/OSX the matcher patterns must be delimited in quotes.**

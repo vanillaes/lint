@@ -19,11 +19,11 @@ program.argument('[pattern]', 'The pattern of file(s) to match', '**/*.js')
     Certain paths (node_modules/, coverage/, vendor/, *.min.js, hidden files)
     are automatically ignored.
 
-    Paths in a project's root .gitignore file are also automatically ignored.
+    Paths in a project's .gitignore file are also automatically ignored.
   `)
+  .option('--cwd [cwd]', 'The working directory (default process.cwd())', process.cwd())
   .option('--fix', 'Attempt to automatically fix linting issues', false)
   .option('--ignore <ignore>', 'Specify files to ignore')
-  .option('--root [root]', 'Root path to lint (default process.cwd())', process.cwd())
   .action((pattern, options) => {
     lint(pattern, options)
   })
