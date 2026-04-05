@@ -23,8 +23,8 @@
   },
   "exports": {
     ".": {
-      "types": "./src/index.d.ts",
-      "default": "./src/index.js"
+      "import": "./src/index.js",
+      "types": "./src/index.d.ts"
     }
   },
   "scripts": {
