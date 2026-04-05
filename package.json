@@ -38,7 +38,7 @@
     "postversion": "git push --follow-tags"
   },
   "dependencies": {
-    "@vanillaes/esmtk": "^1.4.0",
+    "@vanillaes/esmtk": "^1.5.0",
     "commander": "^14.0.3",
     "eslint-plugin-jsdoc": "^62.8.1",
     "neostandard": "^0.13.0"

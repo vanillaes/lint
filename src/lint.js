@@ -1,5 +1,6 @@
 import config from './configs/eslint.config.js'
-import { access, constants, readFile } from 'node:fs/promises'
+import { fileExists, readGitIgnore } from '@vanillaes/esmtk'
+import { readFile } from 'node:fs/promises'
 import { join, resolve } from 'node:path'
 import { ESLint } from 'eslint'
 
@@ -89,39 +90,8 @@ export async function lint (file, options) {
 }
 
 /**
- * Check if a file/folder exists
- * @param {string} path the path to the file/folder
- * @returns {Promise<boolean>} true if the file/folder exists, false otherwise
- */
-export async function fileExists (path) {
-  try {
-    await access(path, constants.F_OK)
-    return true
-  } catch (error) {
-    return false
-  }
-}
-
-/**
- * Read .gitignore
- * @param {string} cwd the current working directory
- * @returns {Promise<string[]>} a comma-deliminated list of ignore globs
- */
-async function readGitIgnore (cwd) {
-  const path = join(cwd, '.gitignore')
-  const exists = await fileExists(path)
-  if (!exists) {
-    return []
-  }
-  const contents = await readFile(path, 'utf8')
-  return contents
-    .split('\n')
-    .map(line => line.trim())
-    .filter(line => line && !line.startsWith('#'))
-}
-
-/**
- * Read Config from package.json
+ * Read Lint Config from package.json
+ * @private
  * @param {string} cwd the current working directory
  * @param {object} options a dict of config options
  * @returns {Promise<object>} a dict of config options
